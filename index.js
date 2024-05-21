@@ -26,19 +26,7 @@ export default class SharedGroupPreferences {
         if (errorCode != null) {
           reject(errorCode)
         } else {
-          var isJson = false;
-          try {
-            var json = JSON.parse(str);
-            isJson = typeof json === 'object';
-          } catch (e) {
-            isJson = false;
-          }
-
-          if (isJson) {
-            resolve(JSON.parse(item))
-          } else {
-            resolve(item)
-          }
+          resolve(JSON.parse(item))
         }
       })
     })
@@ -51,13 +39,7 @@ export default class SharedGroupPreferences {
       }
 
       const options = inputOptions || {}
-
-      var _value = String(value)
-      if (typeof value == 'object'){
-        _value = JSON.stringify(value)
-      }
-      
-      RNReactNativeSharedGroupPreferences.setItem(key, _value, appGroup, options, errorCode=>{
+      RNReactNativeSharedGroupPreferences.setItem(key, JSON.stringify(value), appGroup, options, errorCode=>{
         if (errorCode != null) {
           reject(errorCode)
         } else {
